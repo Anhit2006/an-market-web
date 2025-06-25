@@ -101,4 +101,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     aboutItems.forEach(item => observer.observe(item));
 });
-console.log("✅ Đã chạy đúng file script.js mới");
+// ========== Cuộn mượt đến các section ==========
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+
+// Điều kiện hiển thị và hành động khi click
+window.addEventListener('scroll', () => {
+  backToTopBtn.classList.toggle('show', window.scrollY > 300);
+});
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ========== Hiệu ứng hiện dần khi cuộn ==========
+const revealElements = document.querySelectorAll('.reveal');
+
+function revealOnScroll() {
+  const triggerBottom = window.innerHeight * 0.85;
+  revealElements.forEach(el => {
+    const boxTop = el.getBoundingClientRect().top;
+    if (boxTop < triggerBottom) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+
+// ========== Kiểm tra form ==========
+const form = document.querySelector('form');
+if (form) {
+  form.addEventListener('submit', (e) => {
+    const name = form.querySelector('input[name="name"]');
+    const email = form.querySelector('input[name="email"]');
+    const message = form.querySelector('textarea');
+
+    if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+      alert('Vui lòng điền đầy đủ thông tin!');
+      e.preventDefault();
+    }
+  });
+}
+// Khi tải lại trang, luôn cuộn về đầu (top)
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
+
