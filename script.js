@@ -153,7 +153,7 @@ if (form) {
   });
 }
 // Khi tải lại trang, luôn cuộn về đầu (top)
-window.onbeforeunload = function () {
-  window.scrollTo(0, 0);
-};
+window.addEventListener("load", function () {
+    window.scrollTo(0, 0);
+});
 
