@@ -101,3 +101,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     aboutItems.forEach(item => observer.observe(item));
 });
+console.log("✅ Đã chạy đúng file script.js mới");
